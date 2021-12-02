@@ -15,13 +15,19 @@ def diag(row,col,start,len,board,iswhite):
             if 0<=r_move<8 and 0<=c_move<8:
                 if board[r_move][c_move]=="  ":
                     moves.append((pos,pos2))
-                elif iswhite:
-                    if board[r_move][c_move][0]=="B":
-                        moves.append((pos,pos2))
-                    break
                 else:
-                    if board[r_move][c_move][0]=="W":
-                        moves.append((pos,pos2))
+                    if iswhite:
+                        if board[r_move][c_move][0]=="B":
+                            moves.append((pos,pos2))
+                        if board[r_move][c_move][0]=="W":
+                            
+                            break
+                    else:
+                        if board[r_move][c_move][0]=="W":
+                            moves.append((pos,pos2))
+                        if board[r_move][c_move][0]=="B":
+                            
+                            break
                     break
             else:
                 break
@@ -40,13 +46,15 @@ def horivert(row,col,start,len,board,iswhite):
             if 0<=r_move<8 and 0<=c_move<8:
                 if board[r_move][c_move]=="  ":
                     moves.append((pos,pos2))
-                elif iswhite:
-                    if board[r_move][c_move][0]=="B":
-                        moves.append((pos,pos2))
-                    break
                 else:
-                    if board[r_move][c_move][0]=="W":
-                        moves.append((pos,pos2))
+                    if iswhite:
+                        if board[r_move][c_move][0]=="B":
+                            moves.append((pos,pos2))
+                        
+                    else:
+                        if board[r_move][c_move][0]=="W":
+                            moves.append((pos,pos2))
+                        
                     break
             else:
                 break
@@ -96,11 +104,11 @@ def castle(board,state,iswhite):
                 moves.append((pos1,pos2))
     return moves
 
-def king_moves(row,col,board,iswhite,state):
+def king_moves(row,col,board,iswhite):
     moves = []
-    moves += diag(row,col,1,1,state.board,iswhite)
-    moves += horivert(row,col,1,1,state.board,iswhite)
-    moves += castle(state.board,state,iswhite)
+    moves += diag(row,col,1,1,board,iswhite)
+    moves += horivert(row,col,1,1,board,iswhite)
+   # moves += castle(state.board,state,iswhite)
     return moves
 
 def queen_moves(row,col,board,iswhite):
@@ -135,19 +143,42 @@ def pawn_moves(row,col,board,iswhite):
                 moves.append((pos,(row-1,col)))
                 if board[row-2][col]=="  ":
                     moves.append((pos,(row-2,col)))
+            if col<7:
+                if board[row-1][col+1][0]=="B":
+                    moves.append((pos,(row-1,col+1)))
+            if col>0:
+                if board[row-1][col-1][0]=="B":
+                    moves.append((pos,(row-1,col-1)))
         else:
             if row!=0:
                 if board[row-1][col]=="  ":
                     moves.append((pos,(row-1,col)))
+                if col<7:
+                    if board[row-1][col+1][0]=="B":
+                        moves.append((pos,(row-1,col+1)))
+                if col>0:
+                    if board[row-1][col-1][0]=="B":
+                        moves.append((pos,(row-1,col-1)))
     else:
         if row==1:
             if board[row+1][col]=="  ":
                 moves.append((pos,(row+1,col)))
                 if board[row+2][col]=="  ":
                     moves.append((pos,(row+2,col)))
+            if col<7:
+                if board[row+1][col+1][0]=="W":
+                    moves.append((pos,(row+1,col+1)))
+            if col>0:
+                if board[row+1][col-1][0]=="W":
+                    moves.append((pos,(row+1,col-1)))
         else:
             if row!=7:
                 if board[row+1][col]=="  ":
                     moves.append((pos,(row+1,col)))
+                if col<7:
+                    if board[row+1][col+1][0]=="W":
+                        moves.append((pos,(row+1,col+1)))
+                if col>0:
+                    if board[row+1][col-1][0]=="W":
+                        moves.append((pos,(row+1,col-1)))
     return moves
-

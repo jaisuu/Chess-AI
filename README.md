@@ -1,2 +1,2 @@
 # Chess-AI
-In progress Chess AI to use minimax and alpha beta pruning
+Chess AI with depth 3 based on material on board
